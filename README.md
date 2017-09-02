@@ -1,7 +1,7 @@
 [Agar.io Clone](https://github.com/cortexarts/Agario-Clone)
 ==================================================
 
-A 2D clone of Agar.io created in Unity (engine) and written in C#.
+A 2D clone of Agar.io created in Unity3D and written in C#.
 
 Credits & references:
 --------------------------------------
