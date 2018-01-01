@@ -6,7 +6,24 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
+
     public float elapsedTime;
+
+    // Awake is always called before any Start functions
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Use this for initialization
     void Start()
