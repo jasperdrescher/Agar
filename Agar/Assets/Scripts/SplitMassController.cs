@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class SplitMassController : MonoBehaviour
 {
     public float PlayerMovementSpeed = 4.0f;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 		
 	}
 

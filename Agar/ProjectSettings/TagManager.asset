@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Food
   - SplitMass
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -4,17 +4,16 @@ using System.Collections;
 
 public class PlayerController : GameManager 
 {
-    public float PlayerMovementSpeed = 4.0f;
-    public float MassSplitMultiplier = 0.5f;
+    public GameObject splitMass;
+    public Text scoreText;
+    public Text highscoreText;
+    public Text elapsedTimeText;
 
-    public GameObject SplitMass;
-
-    public Text CurrentScore;
-    public Text CurrentHighScore;
-    public float Increase;
-
-    public int Score = 0;
-    public int HighScore = 0;
+    public float movementSpeed = 4.0f;
+    public float massSplitMultiplier = 0.5f;
+    public float increase = 0.05f;
+    public int currentScore = 0;
+    public int currentHighScore = 0;
 
     // Use this for initialization
     void Start()
@@ -28,14 +27,14 @@ public class PlayerController : GameManager
         Vector3 Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Target.z = transform.position.z;
 
-        transform.position = Vector3.MoveTowards(transform.position, Target, PlayerMovementSpeed * Time.deltaTime / transform.localScale.x);
+        transform.position = Vector3.MoveTowards(transform.position, Target, movementSpeed * Time.deltaTime / transform.localScale.x);
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            if (transform.localScale.x * MassSplitMultiplier >= 1.0f)
+            if (transform.localScale.x * massSplitMultiplier >= 1.0f)
             {
-                transform.localScale = transform.localScale * MassSplitMultiplier;
-                GameObject newSplitMass = Instantiate(SplitMass, transform.position + new Vector3(-0.6f, 0.8f, 0), transform.rotation) as GameObject;
+                transform.localScale = transform.localScale * massSplitMultiplier;
+                GameObject newSplitMass = Instantiate(splitMass, transform.position + new Vector3(-0.6f, 0.8f, 0), transform.rotation) as GameObject;
                 newSplitMass.transform.localScale = transform.localScale;
             }
             else
@@ -44,6 +43,7 @@ public class PlayerController : GameManager
             }
         }
 
+        elapsedTimeText.text = elapsedTime.ToString("F1");
         UpdateGameLogic();
     }
     
@@ -52,18 +52,18 @@ public class PlayerController : GameManager
         if (other.gameObject.tag == "Food")
         {
             PrintToConsole("Ate food", "log");
-            transform.localScale += new Vector3(Increase, Increase, Increase);
+            transform.localScale += new Vector3(increase, increase, increase);
             Destroy(other.gameObject);
 
-            Score += 10;
-            CurrentScore.text = "SCORE: " + Score;
+            currentScore += 10;
+            scoreText.text = "SCORE: " + currentScore;
 
-            if (Score > HighScore)
+            if (currentScore > currentHighScore)
             {
-                HighScore = Score;
+                currentHighScore = currentScore;
             }
 
-            CurrentHighScore.text = "HIGH SCORE: " + HighScore;
+            highscoreText.text = "HIGH SCORE: " + currentHighScore;
         }
         else if (other.gameObject.tag == "SplitMass")
         {

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         {
             using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Create)))
             {
-                writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().HighScore);
+                writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore);
             }
         }
     }
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
         {
-            writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().HighScore);
+            writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore);
         }
     }
 
@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
     {
         using (var reader = new BinaryReader(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
         {
-            var integer = reader.ReadInt32();
-            GameObject.Find("Player").GetComponent<PlayerController>().HighScore = integer;
+            int parsedInt = reader.ReadInt32();
+            GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore = parsedInt;
         }
     }
 

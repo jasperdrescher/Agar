@@ -6,7 +6,7 @@ public class Food : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        int FoodScore = GameObject.Find("Player").GetComponent<PlayerController>().Score;
+        int FoodScore = GameObject.Find("Player").GetComponent<PlayerController>().currentScore;
         if (FoodScore < 500)
         {
             int Increase = 0;
