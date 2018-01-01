@@ -53,6 +53,7 @@ public class PlayerController : GameManager
         {
             PrintToConsole("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
+            other.GetComponent<Food>().RemoveObject();
             Destroy(other.gameObject);
 
             currentScore += 10;

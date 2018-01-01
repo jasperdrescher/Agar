@@ -719,11 +719,6 @@ Prefab:
       propertyPath: elapsedTimeText
       value: 
       objectReference: {fileID: 2128901043}
-    - target: {fileID: 114669874395277094, guid: bec1770cce4cd8645b6f912d6e02f9a3,
-        type: 2}
-      propertyPath: colors.Array.data[0].a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bec1770cce4cd8645b6f912d6e02f9a3, type: 2}
   m_IsPrefabParent: 0
@@ -840,6 +835,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114006919794355634, guid: 64457e8a11d9bda46a4682b2997a4c90,
+        type: 2}
+      propertyPath: food
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114006919794355634, guid: 64457e8a11d9bda46a4682b2997a4c90,
+        type: 2}
+      propertyPath: spawnField.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114006919794355634, guid: 64457e8a11d9bda46a4682b2997a4c90,
+        type: 2}
+      propertyPath: spawnField.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114006919794355634, guid: 64457e8a11d9bda46a4682b2997a4c90,
+        type: 2}
+      propertyPath: spawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114006919794355634, guid: 64457e8a11d9bda46a4682b2997a4c90,
+        type: 2}
+      propertyPath: foodPrefab
+      value: 
+      objectReference: {fileID: 1129988766283344, guid: 93a87473f7d089648b60ecc33cce4cdd,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64457e8a11d9bda46a4682b2997a4c90, type: 2}
   m_IsPrefabParent: 0

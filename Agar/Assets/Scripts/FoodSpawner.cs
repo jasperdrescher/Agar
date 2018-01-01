@@ -4,22 +4,35 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
-    public GameObject Food;
-    public float SpawnSpeed;
+    public GameObject foodPrefab;
+    public List<GameObject> food = new List<GameObject>();
+    public Vector2 spawnField;
+    public int maxFood = 100;
+    public float spawnInterval = 5.0f;
+    private float accumulator;
 
     void Start()
     {
-        InvokeRepeating("Generate", 0, SpawnSpeed);
+
     }
 
-    void Generate()
+    void Update()
     {
-        int x = Random.Range(0, Camera.main.pixelWidth);
-        int y = Random.Range(0, Camera.main.pixelHeight);
+        if (accumulator > spawnInterval)
+        {
+            if (food.Count < maxFood)
+            {
+                Vector3 playerPosition = GameObject.Find("Player").transform.position;
+                Vector3 position = new Vector3(Random.Range(-playerPosition.x - spawnField.x, playerPosition.x + spawnField.x), Random.Range(-playerPosition.y - spawnField.y, playerPosition.y + spawnField.y), 0.0f);
 
-        Vector3 Target = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 0));
-        Target.z = 0;
+                GameObject newFood = Instantiate(foodPrefab, position, Quaternion.identity);
 
-        Instantiate(Food, Target, Quaternion.identity);
+                food.Add(newFood);
+            }
+
+            accumulator = 0;
+        }
+
+        accumulator += Time.deltaTime;
     }
 }

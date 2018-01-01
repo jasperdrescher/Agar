@@ -25,4 +25,9 @@ public class Food : MonoBehaviour
     {
 
     }
+
+    public void RemoveObject()
+    {
+        GameObject.Find("FoodSpawner").GetComponent<FoodSpawner>().food.Remove(gameObject);
+    }
 }
