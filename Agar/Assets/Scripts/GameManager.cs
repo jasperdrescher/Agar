@@ -6,7 +6,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    public float ElapsedTime;
+    public float elapsedTime;
 
     // Use this for initialization
     void Start()
@@ -29,9 +29,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Save();
-            PrintToConsole("Game has been quit.", "warning");
-            Application.Quit();
+            Quit();
         }
 
         UpdateGameLogic();
@@ -42,7 +40,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UpdateGameLogic()
     {
-        ElapsedTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
     }
 
     /// <summary>
@@ -70,25 +68,36 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Quit the game and save settings.
+    /// </summary>
+    public void Quit()
+    {
+        PrintToConsole("Saving game", "warning");
+        Save();
+        PrintToConsole("Exiting game", "warning");
+        Application.Quit();
+    }
+
+    /// <summary>
     /// Prints the message in the console with a clear description.
     /// </summary>
     public void PrintToConsole(string message, string severity)
     {
-        if (severity == "log")
+        switch (severity)
         {
-            Debug.Log(gameObject.name + ": " + message + " @ " + ElapsedTime + " seconds");
-        }
-        else if (severity == "warning")
-        {
-            Debug.Log("<color=yellow>(Warning) </color>" + gameObject.name + ": " + message + " @ " + ElapsedTime + " seconds");
-        }
-        else if (severity == "error")
-        {
-            Debug.Log("<color=red>(Error) </color>" + gameObject.name + ": " + message + " @ " + ElapsedTime + " seconds");
-        }
-        else
-        {
-            Debug.Log(gameObject.name + ": " + message + " @ " + ElapsedTime + " seconds");
+            case "log":
+                Debug.Log(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                break;
+            case "warning":
+                Debug.Log("<color=yellow>(Warning) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                break;
+            case "error":
+                Debug.Log("<color=red>(Error) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                break;
+
+            default:
+                Debug.Log(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                break;
         }
     }
 }
