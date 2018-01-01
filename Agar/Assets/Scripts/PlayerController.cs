@@ -24,10 +24,10 @@ public class PlayerController : GameManager
     // Update is called once per frame
     void Update()
     {
-        Vector3 Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Target.z = transform.position.z;
+        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        target.z = transform.position.z;
 
-        transform.position = Vector3.MoveTowards(transform.position, Target, movementSpeed * Time.deltaTime / transform.localScale.x);
+        transform.position = Vector3.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime / transform.localScale.x);
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -47,12 +47,12 @@ public class PlayerController : GameManager
         UpdateGameLogic();
     }
     
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Food")
         {
             PrintToConsole("Ate food", "log");
-            transform.localScale += new Vector3(increase, increase, increase);
+            transform.localScale += new Vector3(increase, increase, 0);
             Destroy(other.gameObject);
 
             currentScore += 10;

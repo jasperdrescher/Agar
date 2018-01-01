@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SplitMassController : MonoBehaviour
 {
-    public float PlayerMovementSpeed = 4.0f;
+    public float movementSpeed = 4.0f;
 
     // Use this for initialization
     void Start ()
@@ -18,6 +18,6 @@ public class SplitMassController : MonoBehaviour
         Vector3 Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Target.z = transform.position.z;
 
-        transform.position = Vector3.MoveTowards(transform.position, Target, PlayerMovementSpeed * Time.deltaTime / transform.localScale.x);
+        transform.position = Vector3.MoveTowards(transform.position, Target, movementSpeed * Time.deltaTime / transform.localScale.x);
     }
 }
