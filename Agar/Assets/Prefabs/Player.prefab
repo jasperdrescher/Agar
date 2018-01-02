@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 58432841646711090}
   - component: {fileID: 50373849620333038}
   - component: {fileID: 114669874395277094}
+  - component: {fileID: 58264099019800402}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -64,6 +65,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58264099019800402
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369636560395714}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!58 &58432841646711090
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -103,16 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b43164d8545df846ac06c3d09f6a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elapsedTime: 0
   splitMass: {fileID: 1732001593137428, guid: 6fbbf65dba7ac8244b436ede91b69878, type: 2}
-  scoreText: {fileID: 0}
-  highscoreText: {fileID: 0}
-  elapsedTimeText: {fileID: 0}
   movementSpeed: 4
   massSplitMultiplier: 0.5
   increase: 0.05
-  currentScore: 0
-  currentHighScore: 0
 --- !u!212 &212232005409455140
 SpriteRenderer:
   m_ObjectHideFlags: 1

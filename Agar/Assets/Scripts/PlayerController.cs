@@ -1,33 +1,34 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
-public class PlayerController : GameManager 
+public class PlayerController : MonoBehaviour 
 {
     public GameObject splitMass;
-    public Text scoreText;
-    public Text highscoreText;
-    public Text elapsedTimeText;
 
-    public float movementSpeed = 4.0f;
+    public float movementSpeed = 50.0f;
     public float massSplitMultiplier = 0.5f;
     public float increase = 0.05f;
-    public int currentScore = 0;
-    public int currentHighScore = 0;
+
+    private Vector2 movement;
+
+    private Rigidbody2D rigidBody2D;
+    private GameObject gameManager;
+    private GameManager managerScript;
 
     // Use this for initialization
     void Start()
     {
-        Load();
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.Find("GameManager");
+        managerScript = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        target.z = transform.position.z;
-
-        transform.position = Vector3.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime / transform.localScale.x);
+        movement.x = Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X");
+        movement.y = Input.GetAxis("Vertical") + Input.GetAxis("Mouse Y");
+        rigidBody2D.AddForce(movement * movementSpeed * Time.deltaTime);
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -39,36 +40,32 @@ public class PlayerController : GameManager
             }
             else
             {
-                PrintToConsole("Can't split mass!", "log");
+                managerScript.PrintToConsole("Can't split mass!", "log");
             }
         }
-
-        elapsedTimeText.text = elapsedTime.ToString("F1");
-        UpdateGameLogic();
     }
     
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Food")
         {
-            PrintToConsole("Ate food", "log");
+            managerScript.PrintToConsole("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
             Destroy(other.gameObject);
 
-            currentScore += 10;
-            scoreText.text = "SCORE: " + currentScore;
+            managerScript.currentScore += 10;
 
-            if (currentScore > currentHighScore)
+            if (managerScript.currentScore > managerScript.currentHighScore)
             {
-                currentHighScore = currentScore;
+                managerScript.currentHighScore = managerScript.currentScore;
             }
 
-            highscoreText.text = "HIGH SCORE: " + currentHighScore;
+            managerScript.UpdateUI();
         }
         else if (other.gameObject.tag == "SplitMass")
         {
-            PrintToConsole("Collided with mass", "log");
+            managerScript.PrintToConsole("Collided with mass", "log");
             transform.localScale = transform.localScale * 2.0f;
             Destroy(other.gameObject);
         }

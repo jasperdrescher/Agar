@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212279726595971322}
   - component: {fileID: 58476413236087296}
   - component: {fileID: 114184069012888758}
+  - component: {fileID: 50403187265422688}
   m_Layer: 0
   m_Name: SplitMassDuplicate
   m_TagString: SplitMass
@@ -42,6 +43,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50403187265422688
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732001593137428}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58476413236087296
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -68,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6940f39f97a83f14284bf5644e29827e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 50
 --- !u!212 &212279726595971322
 SpriteRenderer:
   m_ObjectHideFlags: 1

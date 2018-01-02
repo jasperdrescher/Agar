@@ -1,14 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+    [Header("Progress")]
     public float elapsedTime;
+    public int currentScore = 0;
+    public int currentHighScore = 0;
+
+    [Header("UI")]
+    public Text scoreText;
+    public Text highscoreText;
+    public Text elapsedTimeText;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -30,13 +38,15 @@ public class GameManager : MonoBehaviour
     {
         if (System.IO.File.Exists("Game.dat"))
         {
-            PrintToConsole("Game.dat exists", "warning");
+            PrintToConsole("Game.dat exists, loading data", "warning");
+            Load();
+            UpdateUI();
         }
         else
         {
             using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Create)))
             {
-                writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore);
+                writer.Write(currentHighScore);
             }
         }
     }
@@ -49,15 +59,17 @@ public class GameManager : MonoBehaviour
             Quit();
         }
 
-        UpdateGameLogic();
+        elapsedTime += Time.deltaTime;
+        elapsedTimeText.text = elapsedTime.ToString("F1");
     }
 
     /// <summary>
-    /// Force the GameManager to update variables
+    /// Update variables related to UI.
     /// </summary>
-    public void UpdateGameLogic()
+    public void UpdateUI()
     {
-        elapsedTime += Time.deltaTime;
+        scoreText.text = "SCORE: " + currentScore;
+        highscoreText.text = "HIGH SCORE: " + currentHighScore;
     }
 
     /// <summary>
@@ -67,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
         {
-            writer.Write(GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore);
+            writer.Write(currentHighScore);
         }
     }
 
@@ -80,7 +92,7 @@ public class GameManager : MonoBehaviour
         using (var reader = new BinaryReader(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
         {
             int parsedInt = reader.ReadInt32();
-            GameObject.Find("Player").GetComponent<PlayerController>().currentHighScore = parsedInt;
+            currentHighScore = parsedInt;
         }
     }
 

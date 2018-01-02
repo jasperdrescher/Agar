@@ -3,11 +3,20 @@ using System.Collections;
 
 public class Food : MonoBehaviour
 {
+    private GameObject gameManager;
+    private GameManager managerScript;
+    private GameObject foodSpawner;
+    private FoodSpawner spawnerScript;
 
     // Use this for initialization
     void Start ()
     {
-        int foodScore = GameObject.Find("Player").GetComponent<PlayerController>().currentScore;
+        gameManager = GameObject.Find("GameManager");
+        managerScript = gameManager.GetComponent<GameManager>();
+        foodSpawner = GameObject.Find("FoodSpawner");
+        spawnerScript = foodSpawner.GetComponent<FoodSpawner>();
+
+        int foodScore = managerScript.currentScore;
         if (foodScore < 500)
         {
             int increase = 0;
@@ -28,6 +37,6 @@ public class Food : MonoBehaviour
 
     public void RemoveObject()
     {
-        GameObject.Find("FoodSpawner").GetComponent<FoodSpawner>().food.Remove(gameObject);
+        spawnerScript.food.Remove(gameObject);
     }
 }

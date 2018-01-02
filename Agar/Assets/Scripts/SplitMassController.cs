@@ -4,20 +4,23 @@ using System.Collections.Generic;
 
 public class SplitMassController : MonoBehaviour
 {
-    public float movementSpeed = 4.0f;
+    public float movementSpeed = 50.0f;
+
+    private Vector2 movement;
+
+    private Rigidbody2D rigidBody2D;
 
     // Use this for initialization
     void Start ()
     {
-		
-	}
+        rigidBody2D = GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Target.z = transform.position.z;
-
-        transform.position = Vector3.MoveTowards(transform.position, Target, movementSpeed * Time.deltaTime / transform.localScale.x);
+        movement.x = Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X");
+        movement.y = Input.GetAxis("Vertical") + Input.GetAxis("Mouse Y");
+        rigidBody2D.AddForce(movement * movementSpeed * Time.deltaTime);
     }
 }

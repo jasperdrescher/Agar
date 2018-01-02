@@ -704,22 +704,29 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 50373849620333038, guid: bec1770cce4cd8645b6f912d6e02f9a3,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50373849620333038, guid: bec1770cce4cd8645b6f912d6e02f9a3,
+        type: 2}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114720302443297156, guid: bec1770cce4cd8645b6f912d6e02f9a3,
         type: 2}
-      propertyPath: scoreText
+      propertyPath: splitMass
       value: 
-      objectReference: {fileID: 1298763299}
+      objectReference: {fileID: 1732001593137428, guid: 6fbbf65dba7ac8244b436ede91b69878,
+        type: 2}
     - target: {fileID: 114720302443297156, guid: bec1770cce4cd8645b6f912d6e02f9a3,
         type: 2}
-      propertyPath: highscoreText
-      value: 
-      objectReference: {fileID: 479441929}
-    - target: {fileID: 114720302443297156, guid: bec1770cce4cd8645b6f912d6e02f9a3,
-        type: 2}
-      propertyPath: elapsedTimeText
-      value: 
-      objectReference: {fileID: 2128901043}
-    m_RemovedComponents: []
+      propertyPath: movementSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 58264099019800402, guid: bec1770cce4cd8645b6f912d6e02f9a3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bec1770cce4cd8645b6f912d6e02f9a3, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1298763298
