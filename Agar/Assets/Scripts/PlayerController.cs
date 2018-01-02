@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody2D;
     private GameObject gameManager;
     private GameManager managerScript;
+    private GameObject panelManager;
+    private PanelManager panelScript;
 
     // Use this for initialization
     void Start()
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
+        panelManager = GameObject.Find("Canvas_overlay");
+        panelScript = panelManager.GetComponent<PanelManager>();
     }
 
     // Update is called once per frame

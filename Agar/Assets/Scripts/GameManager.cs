@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -16,12 +17,7 @@ public class GameManager : MonoBehaviour
     public int currentScore = 0;
     public int currentHighScore = 0;
 
-    [Header("UI")]
-    public GameObject gameplayPanel;
-    public GameObject pausePanel;
-    public Text scoreText;
-    public Text highscoreText;
-    public Text elapsedTimeText;
+    private bool isPlaying = false;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -41,35 +37,31 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gameplayPanel.SetActive(true);
-        pausePanel.SetActive(false);
-
         Load();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && !pausePanel.activeInHierarchy)
+        if (isPlaying)
         {
-            PauseGame();
-            Save();
-        }
-        else if (Input.GetKeyUp(KeyCode.Escape) && pausePanel.activeInHierarchy)
-        {
-            ContinueGame();
-        }
+            elapsedTime += Time.deltaTime;
 
-        elapsedTime += Time.deltaTime;
-        elapsedTimeText.text = elapsedTime.ToString("F1");
-
-        if (currentScore > currentHighScore)
-        {
-            currentHighScore = currentScore;
+            if (currentScore > currentHighScore)
+            {
+                currentHighScore = currentScore;
+            }
         }
+    }
 
-        scoreText.text = "SCORE: " + currentScore;
-        highscoreText.text = "HIGH SCORE: " + currentHighScore;
+    /// <summary>
+    /// Start the game.
+    /// </summary>
+    public void Play()
+    {
+        Time.timeScale = 1;
+        isPlaying = true;
+        SceneManager.LoadScene("Main");
     }
 
     /// <summary>
@@ -78,7 +70,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
-        pausePanel.SetActive(true);
+        isPlaying = false;
     }
 
     /// <summary>
@@ -87,7 +79,7 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1.0f;
-        pausePanel.SetActive(false);
+        isPlaying = true;
     }
 
     /// <summary>
