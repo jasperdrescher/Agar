@@ -51,5 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4bb70ec5d13084d8181fc4bfd83273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Food: {fileID: 1129988766283344, guid: 93a87473f7d089648b60ecc33cce4cdd, type: 2}
-  SpawnSpeed: 0.5
+  foodPrefab: {fileID: 1129988766283344, guid: 93a87473f7d089648b60ecc33cce4cdd, type: 2}
+  food: []
+  spawnField: {x: 50, y: 50}
+  maxFood: 100
+  spawnInterval: 1

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114854960158233194}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,4 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775ca3ab7234cb1419048984300debbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ElapsedTime: 0
+  elapsedTime: 0
+  currentScore: 0
+  currentHighScore: 0
+  gameplayPanel: {fileID: 0}
+  pausePanel: {fileID: 0}
+  scoreText: {fileID: 0}
+  highscoreText: {fileID: 0}
+  elapsedTimeText: {fileID: 0}
