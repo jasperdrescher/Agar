@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 50.0f;
     public float massSplitMultiplier = 0.5f;
     public float increase = 0.05f;
-
-    private Vector2 movement;
+    public Vector2 movement;
 
     private Rigidbody2D rigidBody2D;
     private GameObject gameManager;
