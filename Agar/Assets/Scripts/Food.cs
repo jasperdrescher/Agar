@@ -38,5 +38,6 @@ public class Food : MonoBehaviour
     public void RemoveObject()
     {
         spawnerScript.food.Remove(gameObject);
+        Destroy(gameObject);
     }
 }

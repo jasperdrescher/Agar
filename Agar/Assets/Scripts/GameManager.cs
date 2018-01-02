@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     public int currentHighScore = 0;
 
     [Header("UI")]
+    public GameObject gameplayPanel;
+    public GameObject pausePanel;
     public Text scoreText;
     public Text highscoreText;
     public Text elapsedTimeText;
@@ -36,11 +39,14 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameplayPanel.SetActive(true);
+        pausePanel.SetActive(false);
+
         if (System.IO.File.Exists("Game.dat"))
         {
             PrintToConsole("Game.dat exists, loading data", "warning");
             Load();
-            UpdateUI();
+            UpdateUI(0);
         }
         else
         {
@@ -54,9 +60,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) && !pausePanel.activeInHierarchy)
         {
-            Quit();
+            PauseGame();
+            Save();
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape) && pausePanel.activeInHierarchy)
+        {
+            ContinueGame();
         }
 
         elapsedTime += Time.deltaTime;
@@ -64,10 +75,35 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Pause the game.
+    /// </summary>
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// Proceed gameplay.
+    /// </summary>
+    public void ContinueGame()
+    {
+        Time.timeScale = 1.0f;
+        pausePanel.SetActive(false);
+    }
+
+    /// <summary>
     /// Update variables related to UI.
     /// </summary>
-    public void UpdateUI()
+    public void UpdateUI(int a_Score)
     {
+        currentScore += a_Score;
+
+        if (currentScore > currentHighScore)
+        {
+            currentHighScore = currentScore;
+        }
+
         scoreText.text = "SCORE: " + currentScore;
         highscoreText.text = "HIGH SCORE: " + currentHighScore;
     }

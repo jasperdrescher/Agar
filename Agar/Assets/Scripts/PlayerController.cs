@@ -52,16 +52,7 @@ public class PlayerController : MonoBehaviour
             managerScript.PrintToConsole("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
-            Destroy(other.gameObject);
-
-            managerScript.currentScore += 10;
-
-            if (managerScript.currentScore > managerScript.currentHighScore)
-            {
-                managerScript.currentHighScore = managerScript.currentScore;
-            }
-
-            managerScript.UpdateUI();
+            managerScript.UpdateUI(10);
         }
         else if (other.gameObject.tag == "SplitMass")
         {
