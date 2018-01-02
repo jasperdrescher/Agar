@@ -884,6 +884,11 @@ Prefab:
       propertyPath: elapsedTimeText
       value: 
       objectReference: {fileID: 2128901043}
+    - target: {fileID: 114854960158233194, guid: 1748f596351d6bf48a3ef9a3d1ff2d02,
+        type: 2}
+      propertyPath: highscoresAsset
+      value: 
+      objectReference: {fileID: 4900000, guid: 78ac912ce1ea9f544bb7027e22ac8633, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1748f596351d6bf48a3ef9a3d1ff2d02, type: 2}
   m_IsPrefabParent: 0

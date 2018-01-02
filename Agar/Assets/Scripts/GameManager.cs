@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,19 +44,7 @@ public class GameManager : MonoBehaviour
         gameplayPanel.SetActive(true);
         pausePanel.SetActive(false);
 
-        if (System.IO.File.Exists("Game.dat"))
-        {
-            PrintToConsole("Game.dat exists, loading data", "warning");
-            Load();
-            UpdateUI(0);
-        }
-        else
-        {
-            using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Create)))
-            {
-                writer.Write(currentHighScore);
-            }
-        }
+        Load();
     }
 
     // Update is called once per frame
@@ -72,6 +62,14 @@ public class GameManager : MonoBehaviour
 
         elapsedTime += Time.deltaTime;
         elapsedTimeText.text = elapsedTime.ToString("F1");
+
+        if (currentScore > currentHighScore)
+        {
+            currentHighScore = currentScore;
+        }
+
+        scoreText.text = "SCORE: " + currentScore;
+        highscoreText.text = "HIGH SCORE: " + currentHighScore;
     }
 
     /// <summary>
@@ -95,17 +93,24 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Update variables related to UI.
     /// </summary>
-    public void UpdateUI(int a_Score)
+    public void UpdateScore(int a_Score)
     {
+        PrintToConsole("Updating score", "warning");
+
         currentScore += a_Score;
+    }
 
-        if (currentScore > currentHighScore)
-        {
-            currentHighScore = currentScore;
-        }
+    /// <summary>
+    /// Load game preferences and other save files.
+    /// </summary>
+    public void Load()
+    {
+        PrintToConsole("Loading", "warning");
 
-        scoreText.text = "SCORE: " + currentScore;
-        highscoreText.text = "HIGH SCORE: " + currentHighScore;
+        XmlSerializer serializer = new XmlSerializer(typeof(int));
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/XML/Highscores.xml");
+        currentHighScore = (int)serializer.Deserialize(reader.BaseStream);
+        reader.Close();
     }
 
     /// <summary>
@@ -113,23 +118,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Save()
     {
-        using (var writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
-        {
-            writer.Write(currentHighScore);
-        }
-    }
+        PrintToConsole("Saving", "warning");
 
-
-    /// <summary>
-    /// Load game preferences and other save files.
-    /// </summary>
-    public void Load()
-    {
-        using (var reader = new BinaryReader(File.Open(Application.persistentDataPath + "/Game.dat", FileMode.Open)))
-        {
-            int parsedInt = reader.ReadInt32();
-            currentHighScore = parsedInt;
-        }
+        XmlSerializer serializer = new XmlSerializer(typeof(int));
+        StreamWriter writer = new StreamWriter(Application.streamingAssetsPath + "/XML/Highscores.xml");
+        serializer.Serialize(writer.BaseStream, currentHighScore);
+        writer.Close();
     }
 
     /// <summary>
@@ -137,9 +131,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Quit()
     {
-        PrintToConsole("Saving game", "warning");
         Save();
-        PrintToConsole("Exiting game", "warning");
         Application.Quit();
     }
 
