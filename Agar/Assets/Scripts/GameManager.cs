@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
+        AudioListener.pause = true;
         Save();
     }
 
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1.0f;
+        AudioListener.pause = false;
     }
 
     /// <summary>

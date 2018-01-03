@@ -10,10 +10,15 @@ public class PlayerController : MonoBehaviour
     public float increase = 0.05f;
     public Vector2 movement;
     public Vector2 mouseDistance;
+    public string eatSound = "EatSound";
+    public string spawnSound = "SpawnSound";
+    public string mergeSound = "MergeSound";
 
     private Rigidbody2D rigidBody2D;
     private GameObject gameManager;
     private GameManager managerScript;
+
+    AudioManager audioManager;
 
     // Use this for initialization
     void Start()
@@ -21,6 +26,12 @@ public class PlayerController : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            managerScript.PrintToConsole("No AudioManager found!", "error");
+        }
+        StartCoroutine(Spawn());
     }
 
     // FixedUpdate is used for physics
@@ -40,6 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             if (transform.localScale.x * massSplitMultiplier >= 1.0f)
             {
+                audioManager.PlaySound(mergeSound);
                 transform.localScale = transform.localScale * massSplitMultiplier;
                 GameObject newSplitMass = Instantiate(splitMass, transform.position + new Vector3(-0.6f, 0.8f, 0), transform.rotation) as GameObject;
                 newSplitMass.transform.localScale = transform.localScale;
@@ -56,6 +68,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Food")
         {
             managerScript.PrintToConsole("Ate food", "log");
+            audioManager.PlaySound(eatSound);
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
             managerScript.UpdateScore(10);
@@ -63,8 +76,15 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "SplitMass")
         {
             managerScript.PrintToConsole("Collided with mass", "log");
+            audioManager.PlaySound(mergeSound);
             transform.localScale = transform.localScale * 2.0f;
             Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator Spawn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        audioManager.PlaySound(spawnSound);
     }
 }

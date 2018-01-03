@@ -54,5 +54,5 @@ MonoBehaviour:
   foodPrefab: {fileID: 1129988766283344, guid: 93a87473f7d089648b60ecc33cce4cdd, type: 2}
   food: []
   spawnField: {x: 50, y: 50}
-  maxFood: 100
+  maxFood: 200
   spawnInterval: 1
