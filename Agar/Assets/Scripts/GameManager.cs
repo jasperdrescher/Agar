@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().PauseSound("BackgroundMusic");
         Time.timeScale = 0;
-        AudioListener.pause = true;
         Save();
     }
 
@@ -92,8 +92,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ContinueGame()
     {
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().ResumeSound("BackgroundMusic");
         Time.timeScale = 1.0f;
-        AudioListener.pause = false;
     }
 
     /// <summary>

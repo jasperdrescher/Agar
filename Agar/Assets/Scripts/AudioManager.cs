@@ -33,6 +33,16 @@ public class Sound
         source.Play();
     }
 
+    public void Pause()
+    {
+        source.Pause();
+    }
+
+    public void Resume()
+    {
+        source.UnPause();
+    }
+
     public void Stop()
     {
         source.Stop();
@@ -91,6 +101,34 @@ public class AudioManager : MonoBehaviour
             if (sounds[i].name == _name)
             {
                 sounds[i].Play();
+                return;
+            }
+        }
+
+        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+    }
+
+    public void PauseSound(string _name)
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].name == _name)
+            {
+                sounds[i].Pause();
+                return;
+            }
+        }
+
+        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+    }
+
+    public void ResumeSound(string _name)
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].name == _name)
+            {
+                sounds[i].Resume();
                 return;
             }
         }
