@@ -7,7 +7,7 @@ using System.Text;
 public class PanelManager : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject preparePanel;
+    public GameObject fadePanel;
     public GameObject gameplayPanel;
     public GameObject pausePanel;
     public Text scoreText;
@@ -22,9 +22,9 @@ public class PanelManager : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
-        TogglePanel(preparePanel);
-        managerScript.PrepareLevel();
-        TogglePanel(preparePanel);
+        gameplayPanel.SetActive(true);
+        pausePanel.SetActive(false);
+        fadePanel.SetActive(true);
     }
 	
 	// Update is called once per frame

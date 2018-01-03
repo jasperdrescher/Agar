@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
     public int currentScore = 0;
     public int currentHighScore = 0;
 
-    private bool isPlaying = false;
-
     // Awake is always called before any Start functions
     void Awake()
     {
@@ -44,20 +42,21 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Load();
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            Load();
+            PrepareLevel();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPlaying)
-        {
-            elapsedTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
-            if (currentScore > currentHighScore)
-            {
-                currentHighScore = currentScore;
-            }
+        if (currentScore > currentHighScore)
+        {
+            currentHighScore = currentScore;
         }
     }
 
@@ -73,11 +72,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Start the game.
     /// </summary>
-    public void Play()
+    public void LoadLevel(string a_Name)
     {
-        Time.timeScale = 1;
-        isPlaying = true;
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(a_Name);
     }
 
     /// <summary>
@@ -86,7 +83,6 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
-        isPlaying = false;
         Save();
     }
 
@@ -96,7 +92,6 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1.0f;
-        isPlaying = true;
     }
 
     /// <summary>
@@ -141,6 +136,9 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Save();
+
+        PrintToConsole("Quitting game", "event");
+
         Application.Quit();
     }
 
