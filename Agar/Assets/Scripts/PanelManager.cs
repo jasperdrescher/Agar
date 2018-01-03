@@ -41,4 +41,16 @@ public class PanelManager : MonoBehaviour
         scoreText.text = "SCORE: " + managerScript.currentScore;
         highscoreText.text = "HIGH SCORE: " + managerScript.currentHighScore;
     }
+
+    public void TogglePanel(GameObject a_Panel)
+    {
+        if (a_Panel.activeInHierarchy)
+        {
+            a_Panel.SetActive(false);
+        }
+        else
+        {
+            a_Panel.SetActive(true);
+        }
+    }
 }

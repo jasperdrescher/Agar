@@ -6,7 +6,8 @@ public class SplitMassController : MonoBehaviour
 {
     public float movementSpeed = 50.0f;
 
-    private Vector2 movement;
+    public Vector2 movement;
+    public Vector2 mouseDistance;
 
     private Rigidbody2D rigidBody2D;
 
@@ -16,11 +17,13 @@ public class SplitMassController : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    // FixedUpdate is used for physics
+    private void FixedUpdate()
     {
-        movement.x = Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X");
-        movement.y = Input.GetAxis("Vertical") + Input.GetAxis("Mouse Y");
-        rigidBody2D.AddForce(movement * movementSpeed * Time.deltaTime);
+        mouseDistance.x = (Input.mousePosition.x - Camera.main.WorldToScreenPoint(gameObject.transform.position).x) * 0.005f;
+        mouseDistance.y = (Input.mousePosition.y - Camera.main.WorldToScreenPoint(gameObject.transform.position).y) * 0.005f;
+        movement.x = Input.GetAxis("Horizontal") + mouseDistance.x;
+        movement.y = Input.GetAxis("Vertical") + mouseDistance.y;
+        rigidBody2D.velocity = movement * movementSpeed * Time.deltaTime;
     }
 }

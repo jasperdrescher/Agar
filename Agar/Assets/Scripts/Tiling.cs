@@ -66,12 +66,12 @@ public class Tiling : MonoBehaviour
             float edgeVisiblePosDown = (tf.position.y - spriteHeight / 2) + camVerticalExtent;
 
             //Ccheck if we can see the edge of element and call make new buddy if we can
-            if (cam.transform.position.x >= edgeVisiblePosUp - offset && !hasDownBuddy)
+            if (cam.transform.position.y >= edgeVisiblePosUp - offset && !hasDownBuddy)
             {
                 MakeBuddyVertical(1);
                 hasDownBuddy = true;
             }
-            else if (cam.transform.position.x <= edgeVisiblePosDown + offset && !hasUpBuddy)
+            else if (cam.transform.position.y <= edgeVisiblePosDown + offset && !hasUpBuddy)
             {
                 MakeBuddyVertical(-1);
                 hasUpBuddy = true;
