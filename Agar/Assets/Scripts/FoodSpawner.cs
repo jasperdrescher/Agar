@@ -22,17 +22,22 @@ public class FoodSpawner : MonoBehaviour
         {
             if (food.Count < maxFood)
             {
-                Vector3 playerPosition = GameObject.Find("Player").transform.position;
-                Vector3 position = new Vector3(Random.Range(-playerPosition.x - spawnField.x, playerPosition.x + spawnField.x), Random.Range(-playerPosition.y - spawnField.y, playerPosition.y + spawnField.y), 0.0f);
-
-                GameObject newFood = Instantiate(foodPrefab, position, Quaternion.identity);
-
-                food.Add(newFood);
+                SpawnFood(1);
             }
 
             accumulator = 0;
         }
 
         accumulator += Time.deltaTime;
+    }
+
+    public void SpawnFood(int a_Amount)
+    {
+        for (int i = 0; i < a_Amount; i++)
+        {
+            Vector3 position = new Vector3(Random.Range(-spawnField.x, spawnField.x), Random.Range(-spawnField.y, spawnField.y), 0.0f);
+            GameObject newFood = Instantiate(foodPrefab, position, Quaternion.identity);
+            food.Add(newFood);
+        }
     }
 }

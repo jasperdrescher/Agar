@@ -57,6 +57,15 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Start the game.
     /// </summary>
+    public void PrepareLevel()
+    {
+        PrintToConsole("Preparing level", "event");
+        GameObject.Find("FoodSpawner").GetComponent<FoodSpawner>().SpawnFood(50);
+    }
+
+    /// <summary>
+    /// Start the game.
+    /// </summary>
     public void Play()
     {
         Time.timeScale = 1;
@@ -87,7 +96,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UpdateScore(int a_Score)
     {
-        PrintToConsole("Updating score", "warning");
+        PrintToConsole("Updating score", "event");
 
         currentScore += a_Score;
     }
@@ -97,7 +106,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        PrintToConsole("Loading", "warning");
+        PrintToConsole("Loading", "event");
 
         XmlSerializer serializer = new XmlSerializer(typeof(int));
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/XML/Highscores.xml");
@@ -110,7 +119,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Save()
     {
-        PrintToConsole("Saving", "warning");
+        PrintToConsole("Saving", "event");
 
         XmlSerializer serializer = new XmlSerializer(typeof(int));
         StreamWriter writer = new StreamWriter(Application.streamingAssetsPath + "/XML/Highscores.xml");
@@ -136,6 +145,9 @@ public class GameManager : MonoBehaviour
         {
             case "log":
                 Debug.Log(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                break;
+            case "event":
+                Debug.Log("<color=orange>(Event) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
                 break;
             case "warning":
                 Debug.Log("<color=yellow>(Warning) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
