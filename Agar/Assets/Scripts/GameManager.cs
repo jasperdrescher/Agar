@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+    public bool persistent = false;
+
     [Header("Progress")]
     public float elapsedTime;
     public int currentScore = 0;
@@ -22,16 +24,21 @@ public class GameManager : MonoBehaviour
     // Awake is always called before any Start functions
     void Awake()
     {
-        if (instance == null)
+        if (instance != null)
+        {
+            if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
         {
             instance = this;
+            if (persistent)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization

@@ -43,6 +43,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    public bool persistent = false;
     [SerializeField]
     Sound[] sounds;
 
@@ -61,7 +62,10 @@ public class AudioManager : MonoBehaviour
         else
         {
             instance = this;
-            //DontDestroyOnLoad(gameObject);
+            if (persistent)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 
