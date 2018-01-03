@@ -44,7 +44,7 @@ public class Tiling : MonoBehaviour
             float edgeVisiblePosRight = (tf.position.x + spriteWidth / 2) - camHroziontalExtent;
             float edgeVisiblePosLeft = (tf.position.x - spriteWidth / 2) + camHroziontalExtent;
 
-            //Ccheck if we can see the edge of element and call make new buddy if we can
+            // Check if we can see the edge of element and call make new buddy if we can
             if (cam.transform.position.x >= edgeVisiblePosRight - offset && !hasRightBuddy)
             {
                 MakeBuddyHorizontal(1);
@@ -65,7 +65,7 @@ public class Tiling : MonoBehaviour
             float edgeVisiblePosUp = (tf.position.y + spriteHeight / 2) - camVerticalExtent;
             float edgeVisiblePosDown = (tf.position.y - spriteHeight / 2) + camVerticalExtent;
 
-            //Ccheck if we can see the edge of element and call make new buddy if we can
+            // Check if we can see the edge of element and call make new buddy if we can
             if (cam.transform.position.y >= edgeVisiblePosUp - offset && !hasDownBuddy)
             {
                 MakeBuddyVertical(1);

@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         isPlaying = false;
+        Save();
     }
 
     /// <summary>
