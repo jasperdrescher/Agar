@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour
     public float massSplitMultiplier = 0.5f;
     public float increase = 0.05f;
     public Vector2 movement;
+    public Vector2 mouseDistance;
 
     private Rigidbody2D rigidBody2D;
     private GameObject gameManager;
     private GameManager managerScript;
-    private GameObject panelManager;
-    private PanelManager panelScript;
 
     // Use this for initialization
     void Start()
@@ -22,17 +21,21 @@ public class PlayerController : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
-        panelManager = GameObject.Find("Canvas_overlay");
-        panelScript = panelManager.GetComponent<PanelManager>();
+    }
+
+    // FixedUpdate is used for physics
+    private void FixedUpdate()
+    {
+        mouseDistance.x = (Input.mousePosition.x - Camera.main.WorldToScreenPoint(gameObject.transform.position).x) * 0.001f;
+        mouseDistance.y = (Input.mousePosition.y - Camera.main.WorldToScreenPoint(gameObject.transform.position).y) * 0.001f;
+        movement.x = Input.GetAxis("Horizontal") + mouseDistance.x;
+        movement.y = Input.GetAxis("Vertical") + mouseDistance.y;
+        rigidBody2D.AddForce(movement * movementSpeed * Time.deltaTime);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        movement.x = Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X");
-        movement.y = Input.GetAxis("Vertical") + Input.GetAxis("Mouse Y");
-        rigidBody2D.AddForce(movement * movementSpeed * Time.deltaTime);
-
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (transform.localScale.x * massSplitMultiplier >= 1.0f)
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Food")
