@@ -1,9 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class Utilities : MonoBehaviour
 {
+    /// <summary>
+    /// Serialize an object.
+    /// </summary>
+    public void Serialize(object item, string filepath)
+    {
+        XmlSerializer serializer = new XmlSerializer(item.GetType());
+        StreamWriter writer = new StreamWriter(filepath);
+        serializer.Serialize(writer.BaseStream, item);
+        writer.Close();
+    }
+
+    /// <summary>
+    /// Deserialize an object.
+    /// </summary>
+    public static T Deserialize<T>(string filepath)
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(T));
+        StreamReader reader = new StreamReader(filepath);
+        T deserialized = (T)serializer.Deserialize(reader.BaseStream);
+        reader.Close();
+        return deserialized;
+    }
+
     /// <summary>
     /// Prints the given message in the console with extra information.
     /// </summary>
