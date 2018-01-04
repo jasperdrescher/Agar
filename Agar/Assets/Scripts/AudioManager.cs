@@ -105,7 +105,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+        managerScript.Print("Sound not found in list, " + _name, "error");
     }
 
     public void PauseSound(string _name)
@@ -119,7 +119,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+        managerScript.Print("Sound not found in list, " + _name, "error");
     }
 
     public void ResumeSound(string _name)
@@ -133,7 +133,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+        managerScript.Print("Sound not found in list, " + _name, "error");
     }
 
     public void StopSound(string _name)
@@ -147,6 +147,6 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.PrintToConsole("Sound not found in list, " + _name, "error");
+        managerScript.Print("Sound not found in list, " + _name, "error");
     }
 }

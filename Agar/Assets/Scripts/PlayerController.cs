@@ -17,8 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody2D;
     private GameObject gameManager;
     private GameManager managerScript;
-
-    AudioManager audioManager;
+    private AudioManager audioManager;
 
     // Use this for initialization
     void Start()
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
         audioManager = AudioManager.instance;
         if (audioManager == null)
         {
-            managerScript.PrintToConsole("No AudioManager found!", "error");
+            managerScript.Print("No AudioManager found!", "error");
         }
         StartCoroutine(Spawn());
     }
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                managerScript.PrintToConsole("Can't split mass!", "log");
+                managerScript.Print("Can't split mass!", "log");
             }
         }
     }
@@ -67,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Food")
         {
-            managerScript.PrintToConsole("Ate food", "log");
+            managerScript.Print("Ate food", "log");
             audioManager.PlaySound(eatSound);
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
@@ -75,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SplitMass")
         {
-            managerScript.PrintToConsole("Collided with mass", "log");
+            managerScript.Print("Collided with mass", "log");
             audioManager.PlaySound(mergeSound);
             transform.localScale = transform.localScale * 2.0f;
             Destroy(other.gameObject);

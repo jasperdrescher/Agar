@@ -47,7 +47,7 @@ public class SplitMassController : MonoBehaviour
             }
             else
             {
-                managerScript.PrintToConsole("Can't split mass!", "log");
+                managerScript.Print("Can't split mass!", "log");
             }
         }
     }
@@ -56,7 +56,7 @@ public class SplitMassController : MonoBehaviour
     {
         if (other.gameObject.tag == "Food")
         {
-            managerScript.PrintToConsole("Ate food", "log");
+            managerScript.Print("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
             managerScript.UpdateScore(10);

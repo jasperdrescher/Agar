@@ -51,10 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e9641903818a084ab909db64bba1ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistent: 1
   sounds:
   - name: BackgroundMusic
     clip: {fileID: 8300000, guid: d3cc1f81594c47b4e82f3731c538dd1c, type: 3}
-    volume: 0.75
+    volume: 0.5
     pitch: 1
     randomVolume: 0
     randomPitch: 0
@@ -68,6 +69,27 @@ MonoBehaviour:
     loop: 0
   - name: ButtonHover
     clip: {fileID: 8300000, guid: 0ccaaefe79189f84f99f6fe61bfe5532, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: EatSound
+    clip: {fileID: 8300000, guid: 1553ba6104eecd846adc8737b30d40e5, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: MergeSound
+    clip: {fileID: 8300000, guid: bbf48f10a0820374cbbf3e78c00d4c96, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: SpawnSound
+    clip: {fileID: 8300000, guid: 26293a44a7f7fb14a9a4dd3e3963b51c, type: 3}
     volume: 1
     pitch: 1
     randomVolume: 0

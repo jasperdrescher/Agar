@@ -11,13 +11,18 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public enum State { Menu, Preparing, Playing, Paused };
 
     public bool persistent = false;
-
-    [Header("Progress")]
-    public float elapsedTime;
+    public State currentState;
+    public int currentLevel = 1;
+    public float elapsedTime = 0.0f;
+    public float playTime = 0.0f;
     public int currentScore = 0;
     public int currentHighScore = 0;
+
+    private AudioManager audioManager;
+    private GameObject level;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -42,10 +47,10 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Main")
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
         {
-            Load();
-            PrepareLevel();
+            Print("No AudioManager found!", "error");
         }
     }
 
@@ -54,35 +59,54 @@ public class GameManager : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        if (currentScore > currentHighScore)
+        if (currentState == State.Playing)
         {
-            currentHighScore = currentScore;
+            playTime += Time.deltaTime;
+
+            if (currentScore > currentHighScore)
+            {
+                currentHighScore = currentScore;
+            }
         }
     }
 
     /// <summary>
-    /// Start the game.
+    /// Change the current game state.
     /// </summary>
-    public void PrepareLevel()
+    public void ChangeState(State a_newState)
     {
-        PrintToConsole("Preparing level", "event");
-        GameObject.Find("FoodSpawner").GetComponent<FoodSpawner>().SpawnFood(50);
+        Print("Changing state", "event");
+
+        currentState = a_newState;
     }
 
     /// <summary>
     /// Start the game.
     /// </summary>
-    public void LoadLevel(string a_Name)
+    public void PrepareLevel(int a_Newlevel)
+    {
+        Print("Preparing level", "event");
+
+        currentState = State.Preparing;
+        currentLevel = a_Newlevel;
+    }
+
+    /// <summary>
+    /// Start the game.
+    /// </summary>
+    public void LoadScene(string a_Name)
     {
         SceneManager.LoadScene(a_Name);
+        PrepareLevel(currentLevel);
     }
 
     /// <summary>
     /// Pause the game.
     /// </summary>
-    public void PauseGame()
+    public void Pause()
     {
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().PauseSound("BackgroundMusic");
+        currentState = State.Paused;
+        audioManager.PauseSound("BackgroundMusic");
         Time.timeScale = 0;
         Save();
     }
@@ -90,9 +114,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Proceed gameplay.
     /// </summary>
-    public void ContinueGame()
+    public void Continue()
     {
-        GameObject.Find("AudioManager").GetComponent<AudioManager>().ResumeSound("BackgroundMusic");
+        currentState = State.Playing;
+        audioManager.ResumeSound("BackgroundMusic");
         Time.timeScale = 1.0f;
     }
 
@@ -101,7 +126,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UpdateScore(int a_Score)
     {
-        PrintToConsole("Updating score", "event");
+        Print("Updating score", "event");
 
         currentScore += a_Score;
     }
@@ -111,7 +136,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        PrintToConsole("Loading", "event");
+        Print("Loading", "event");
 
         XmlSerializer serializer = new XmlSerializer(typeof(int));
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/XML/Highscores.xml");
@@ -124,7 +149,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Save()
     {
-        PrintToConsole("Saving", "event");
+        Print("Saving", "event");
 
         XmlSerializer serializer = new XmlSerializer(typeof(int));
         StreamWriter writer = new StreamWriter(Application.streamingAssetsPath + "/XML/Highscores.xml");
@@ -139,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         Save();
 
-        PrintToConsole("Quitting game", "event");
+        Print("Quitting game", "event");
 
         Application.Quit();
     }
@@ -147,7 +172,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Prints the message in the console with a clear description.
     /// </summary>
-    public void PrintToConsole(string message, string severity)
+    public void Print(string message, string severity)
     {
         switch (severity)
         {
@@ -158,10 +183,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("<color=orange>(Event) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
                 break;
             case "warning":
-                Debug.Log("<color=yellow>(Warning) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                Debug.LogWarning(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
                 break;
             case "error":
-                Debug.Log("<color=red>(Error) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
+                Debug.LogError(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
                 break;
 
             default:

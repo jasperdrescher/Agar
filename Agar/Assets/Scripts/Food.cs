@@ -6,15 +6,14 @@ public class Food : MonoBehaviour
     private GameObject gameManager;
     private GameManager managerScript;
     private GameObject foodSpawner;
-    private FoodSpawner spawnerScript;
+    private FoodManager foodManager;
 
     // Use this for initialization
     void Start ()
     {
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
-        foodSpawner = GameObject.Find("FoodSpawner");
-        spawnerScript = foodSpawner.GetComponent<FoodSpawner>();
+        foodManager = GameObject.Find("Level").GetComponent<FoodManager>();
 
         int foodScore = managerScript.currentScore;
         if (foodScore < 500)
@@ -37,7 +36,7 @@ public class Food : MonoBehaviour
 
     public void RemoveObject()
     {
-        spawnerScript.food.Remove(gameObject);
+        foodManager.food.Remove(gameObject);
         Destroy(gameObject);
     }
 }

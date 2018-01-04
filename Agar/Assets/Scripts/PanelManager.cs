@@ -13,15 +13,23 @@ public class PanelManager : MonoBehaviour
     public Text scoreText;
     public Text highscoreText;
     public Text elapsedTimeText;
+    public string buttonHover = "ButtonHover";
+    public string buttonPress = "ButtonPress";
 
     private GameObject gameManager;
     private GameManager managerScript;
+    private AudioManager audioManager;
 
     // Use this for initialization
     void Start ()
     {
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            managerScript.Print("No AudioManager found!", "error");
+        }
         gameplayPanel.SetActive(true);
         pausePanel.SetActive(false);
         fadePanel.SetActive(true);
@@ -32,12 +40,12 @@ public class PanelManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape) && !pausePanel.activeInHierarchy)
         {
-            managerScript.PauseGame();
+            managerScript.Pause();
             pausePanel.SetActive(true);
         }
         else if (Input.GetKeyUp(KeyCode.Escape) && pausePanel.activeInHierarchy)
         {
-            managerScript.ContinueGame();
+            managerScript.Continue();
             pausePanel.SetActive(false);
         }
 
@@ -55,6 +63,22 @@ public class PanelManager : MonoBehaviour
         else
         {
             a_Panel.SetActive(true);
+        }
+    }
+
+    public void PlaySound(string a_Sound)
+    {
+        if (a_Sound == buttonHover)
+        {
+            audioManager.PlaySound(buttonHover);
+        }
+        else if (a_Sound == buttonPress)
+        {
+            audioManager.PlaySound(buttonPress);
+        }
+        else
+        {
+            managerScript.Print("No audio file found " + a_Sound, "error");
         }
     }
 }
