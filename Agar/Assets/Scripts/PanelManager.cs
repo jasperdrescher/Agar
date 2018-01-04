@@ -16,19 +16,17 @@ public class PanelManager : MonoBehaviour
     public string buttonHover = "ButtonHover";
     public string buttonPress = "ButtonPress";
 
-    private GameObject gameManager;
-    private GameManager managerScript;
+    private GameManager gameManager;
     private AudioManager audioManager;
 
     // Use this for initialization
     void Start ()
     {
-        gameManager = GameObject.Find("GameManager");
-        managerScript = gameManager.GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = AudioManager.instance;
         if (audioManager == null)
         {
-            managerScript.Print("No AudioManager found!", "error");
+            gameManager.Print("No AudioManager found!", "error");
         }
         gameplayPanel.SetActive(true);
         pausePanel.SetActive(false);
@@ -40,18 +38,16 @@ public class PanelManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape) && !pausePanel.activeInHierarchy)
         {
-            managerScript.Pause();
-            pausePanel.SetActive(true);
+            TogglePause();
         }
         else if (Input.GetKeyUp(KeyCode.Escape) && pausePanel.activeInHierarchy)
         {
-            managerScript.Continue();
-            pausePanel.SetActive(false);
+            TogglePause();
         }
 
-        elapsedTimeText.text = managerScript.elapsedTime.ToString("F1");
-        scoreText.text = "SCORE: " + managerScript.currentScore;
-        highscoreText.text = "HIGH SCORE: " + managerScript.currentHighScore;
+        elapsedTimeText.text = gameManager.elapsedTime.ToString("F1");
+        scoreText.text = "SCORE: " + gameManager.currentScore;
+        highscoreText.text = "HIGH SCORE: " + gameManager.currentHighScore;
     }
 
     public void TogglePanel(GameObject a_Panel)
@@ -63,6 +59,20 @@ public class PanelManager : MonoBehaviour
         else
         {
             a_Panel.SetActive(true);
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (gameManager.currentState == GameManager.State.Playing)
+        {
+            TogglePanel(pausePanel);
+            gameManager.Pause();
+        }
+        else
+        {
+            TogglePanel(pausePanel);
+            gameManager.Continue();
         }
     }
 
@@ -78,7 +88,7 @@ public class PanelManager : MonoBehaviour
         }
         else
         {
-            managerScript.Print("No audio file found " + a_Sound, "error");
+            gameManager.Print("No audio file found " + a_Sound, "error");
         }
     }
 }
