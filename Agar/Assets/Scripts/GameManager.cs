@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
 
 public class GameManager : Utilities
 {
@@ -52,12 +49,14 @@ public class GameManager : Utilities
         {
             Print("No AudioManager found!", "error");
         }
+
+        Load();
     }
 
     // Update is called once per frame
     void Update()
     {
-        elapsedTime += Time.deltaTime;
+        elapsedTime = Time.time;
 
         if (currentState == State.Playing)
         {
@@ -138,10 +137,7 @@ public class GameManager : Utilities
     {
         Print("Loading", "event");
 
-        XmlSerializer serializer = new XmlSerializer(typeof(int));
-        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/XML/Highscores.xml");
-        currentHighScore = (int)serializer.Deserialize(reader.BaseStream);
-        reader.Close();
+        currentHighScore = Deserialize<int>(Application.streamingAssetsPath + "/XML/Highscores.xml");
     }
 
     /// <summary>
@@ -151,10 +147,7 @@ public class GameManager : Utilities
     {
         Print("Saving", "event");
 
-        XmlSerializer serializer = new XmlSerializer(typeof(int));
-        StreamWriter writer = new StreamWriter(Application.streamingAssetsPath + "/XML/Highscores.xml");
-        serializer.Serialize(writer.BaseStream, currentHighScore);
-        writer.Close();
+        Serialize(currentHighScore, Application.streamingAssetsPath + "/XML/Highscores.xml");
     }
 
     /// <summary>
