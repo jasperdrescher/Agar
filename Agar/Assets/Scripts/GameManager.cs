@@ -8,7 +8,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Utilities
 {
     public static GameManager instance = null;
     public enum State { Menu, Preparing, Playing, Paused };
@@ -167,31 +167,5 @@ public class GameManager : MonoBehaviour
         Print("Quitting game", "event");
 
         Application.Quit();
-    }
-
-    /// <summary>
-    /// Prints the message in the console with a clear description.
-    /// </summary>
-    public void Print(string message, string severity)
-    {
-        switch (severity)
-        {
-            case "log":
-                Debug.Log(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
-                break;
-            case "event":
-                Debug.Log("<color=orange>(Event) </color>" + gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
-                break;
-            case "warning":
-                Debug.LogWarning(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
-                break;
-            case "error":
-                Debug.LogError(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
-                break;
-
-            default:
-                Debug.Log(gameObject.name + ": " + message + " @ " + elapsedTime + " seconds");
-                break;
-        }
     }
 }

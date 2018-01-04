@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class Utilities : MonoBehaviour
 {
-
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-
     /// <summary>
     /// Prints the given message in the console with extra information.
     /// </summary>
