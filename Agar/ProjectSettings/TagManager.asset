@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Food
   - SplitMass
-  - GameManager
-  - AudioManager
   layers:
   - Default
   - TransparentFX

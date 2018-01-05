@@ -276,7 +276,7 @@ RectTransform:
   - {fileID: 228737308}
   - {fileID: 292717349}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -321,6 +321,10 @@ Prefab:
     - target: {fileID: 4563525910412836, guid: b7a8ebfa1c38e334690a665a6f73c50d, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1015512934271624, guid: b7a8ebfa1c38e334690a665a6f73c50d, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a8ebfa1c38e334690a665a6f73c50d, type: 2}
@@ -402,7 +406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1329872477}
+      - m_Target: {fileID: 865610470}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -413,7 +417,7 @@ MonoBehaviour:
           m_StringArgument: Main
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1609876639}
+      - m_Target: {fileID: 865610470}
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -475,7 +479,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1609876639}
+        - m_Target: {fileID: 865610470}
           m_MethodName: PlaySound
           m_Mode: 5
           m_Arguments:
@@ -566,7 +570,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1329872477}
+      - m_Target: {fileID: 865610470}
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -577,7 +581,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1609876639}
+      - m_Target: {fileID: 865610470}
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -639,7 +643,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1609876639}
+        - m_Target: {fileID: 865610470}
           m_MethodName: PlaySound
           m_Mode: 5
           m_Arguments:
@@ -692,9 +696,61 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1412233316772382, guid: 1748f596351d6bf48a3ef9a3d1ff2d02, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1748f596351d6bf48a3ef9a3d1ff2d02, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &865610469
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154892768540856, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: edd95d70d9df4df43bb55d4c8ac689d7, type: 2}
+  m_IsPrefabParent: 0
+--- !u!114 &865610470 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114763609789882908, guid: edd95d70d9df4df43bb55d4c8ac689d7,
+    type: 2}
+  m_PrefabInternal: {fileID: 865610469}
+  m_Script: {fileID: 11500000, guid: 95895e2314dc30e4abe146f814e639c7, type: 3}
 --- !u!1 &873700348
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +862,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4989302107367498, guid: 14727c2873401a8479262f3e98c9f4d0, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114939495891213352, guid: 14727c2873401a8479262f3e98c9f4d0,
         type: 2}
@@ -890,12 +946,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1277888065}
---- !u!114 &1329872477 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114854960158233194, guid: 1748f596351d6bf48a3ef9a3d1ff2d02,
-    type: 2}
-  m_PrefabInternal: {fileID: 620004194}
-  m_Script: {fileID: 11500000, guid: 775ca3ab7234cb1419048984300debbc, type: 3}
 --- !u!1 &1437018176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,12 +1077,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1554011038}
---- !u!114 &1609876639 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114460493580702512, guid: b7a8ebfa1c38e334690a665a6f73c50d,
-    type: 2}
-  m_PrefabInternal: {fileID: 111474672}
-  m_Script: {fileID: 11500000, guid: 0e9641903818a084ab909db64bba1ba6, type: 3}
 --- !u!1 &1648591884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,5 +1155,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

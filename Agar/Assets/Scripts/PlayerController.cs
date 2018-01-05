@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour 
+public class PlayerController : Utilities
 {
     public GameObject splitMass;
 
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         audioManager = AudioManager.instance;
         if (audioManager == null)
         {
-            managerScript.Print("No AudioManager found!", "error");
+            Print("No AudioManager found!", "error");
         }
         StartCoroutine(Spawn());
     }
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                managerScript.Print("Can't split mass!", "log");
+                Print("Can't split mass!", "log");
             }
         }
     }
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Food")
         {
-            managerScript.Print("Ate food", "log");
+            Print("Ate food", "log");
             audioManager.PlaySound(eatSound);
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SplitMass")
         {
-            managerScript.Print("Collided with mass", "log");
+            Print("Collided with mass", "log");
             audioManager.PlaySound(mergeSound);
             transform.localScale = transform.localScale * 2.0f;
             Destroy(other.gameObject);

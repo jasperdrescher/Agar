@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour
+public class Level : Utilities
 {
     public static Level instance = null;
 
@@ -71,7 +71,7 @@ public class Level : MonoBehaviour
     /// </summary>
     public void PrepareLevel(int a_Level)
     {
-        gameManager.Print("Preparing level", "event");
+        Print("Preparing level", "event");
 
         ChangeLevel(a_Level);
         foodManager.SpawnFood(50);
@@ -82,7 +82,7 @@ public class Level : MonoBehaviour
     /// </summary>
     public void ChangeLevel(int a_Level)
     {
-        gameManager.Print("Changing level", "event");
+        Print("Changing level", "event");
 
         switch (a_Level)
         {
