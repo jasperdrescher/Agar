@@ -6,13 +6,17 @@ public class Level : Utilities
 {
     public Vector2 spawnField;
     public float borderThickness = 1.0f;
-
-    private FoodManager foodManager;
+    public GameObject foodPrefab;
+    public List<GameObject> food = new List<GameObject>();
+    public float spawnInterval = 5.0f;
+    
     private GameManager gameManager;
     private BoxCollider2D upCollider;
     private BoxCollider2D downCollider;
     private BoxCollider2D rightCollider;
     private BoxCollider2D leftCollider;
+    private float accumulator;
+    private int maxFood = 100;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -23,13 +27,7 @@ public class Level : Utilities
     // Use this for initialization
     void Start ()
     {
-        foodManager = GetComponent<FoodManager>();
         gameManager = FindObjectOfType<GameManager>();
-        if (gameManager == null)
-        {
-            Print("No GameManager found!", "error");
-        }
-
         upCollider = gameObject.AddComponent<BoxCollider2D>();
         upCollider.offset = new Vector2(0.0f, spawnField.y);
         upCollider.size = new Vector2(spawnField.x * 2.0f, borderThickness);
@@ -47,45 +45,42 @@ public class Level : Utilities
 	// Update is called once per frame
 	void Update ()
     {
-        if (gameManager.currentState == GameManager.State.Preparing)
+        if (gameManager.currentState == GameManager.State.Playing)
         {
-            PrepareLevel(gameManager.currentLevel);
-            gameManager.ChangeState(GameManager.State.Playing);
+            if (accumulator > spawnInterval)
+            {
+                if (food.Count < maxFood)
+                {
+                    SpawnFood(1);
+                }
+
+                accumulator = 0;
+            }
+
+            accumulator += Time.deltaTime;
         }
-	}
-
-    /// <summary>
-    /// Prepare the current level.
-    /// </summary>
-    public void PrepareLevel(int a_Level)
-    {
-        Print("Preparing level", "event");
-
-        ChangeLevel(a_Level);
-        foodManager.SpawnFood(50);
     }
 
     /// <summary>
-    /// Change the current level.
+    /// Spawn a certain amount of food instances.
     /// </summary>
-    public void ChangeLevel(int a_Level)
+    public void SpawnFood(int amount)
     {
-        Print("Changing level", "event");
-
-        switch (a_Level)
+        for (int i = 0; i < amount; i++)
         {
-            case 1:
-                spawnField = new Vector2(50.0f - borderThickness, 50.0f - borderThickness);
-                foodManager.ChangeLimits(200, spawnField);
-                break;
-            case 2:
-                spawnField = new Vector2(50.0f - borderThickness, 50.0f - borderThickness);
-                foodManager.ChangeLimits(100, spawnField);
-                break;
-            default:
-                spawnField = new Vector2(50.0f - borderThickness, 50.0f - borderThickness);
-                foodManager.ChangeLimits(200, spawnField);
-                break;
+            Vector3 position = new Vector3(Random.Range(-spawnField.x, spawnField.x), Random.Range(-spawnField.y, spawnField.y), 0.0f);
+            GameObject newFood = Instantiate(foodPrefab, position, Quaternion.identity);
+            newFood.transform.parent = gameObject.transform;
+            food.Add(newFood);
         }
+    }
+
+    /// <summary>
+    /// Change the current variables in FoodManager.
+    /// </summary>
+    public void ChangeLimits(int a_Maxfood, Vector2 a_Maxfield)
+    {
+        maxFood = a_Maxfood;
+        spawnField = a_Maxfield;
     }
 }

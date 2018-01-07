@@ -1282,6 +1282,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114854960158233194, guid: 1748f596351d6bf48a3ef9a3d1ff2d02,
+        type: 2}
+      propertyPath: initialFood
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1748f596351d6bf48a3ef9a3d1ff2d02, type: 2}
   m_IsPrefabParent: 0
@@ -1566,7 +1571,6 @@ GameObject:
   - component: {fileID: 1140263925}
   - component: {fileID: 1140263924}
   - component: {fileID: 1140263923}
-  - component: {fileID: 1140263922}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1574,18 +1578,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1140263922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1140263921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
 --- !u!114 &1140263923
 MonoBehaviour:
   m_ObjectHideFlags: 0

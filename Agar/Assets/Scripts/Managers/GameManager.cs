@@ -10,7 +10,7 @@ public class GameManager : Utilities
     public State currentState;
     public float elapsedTime = 0.0f;
     public float playTime = 0.0f;
-    public int currentLevel = 1;
+    public int initialFood = 50;
     public int currentScore = 0;
     public int currentHighScore = 0;
 
@@ -18,7 +18,7 @@ public class GameManager : Utilities
 
     private AudioManager audioManager;
     private Camera mainCamera;
-    private GameObject level;
+    private Level level;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -37,7 +37,12 @@ public class GameManager : Utilities
         mainCamera = Camera.main;
         if (mainCamera == null)
         {
-            Print("No AudioManager found!", "error");
+            Print("No Camera found!", "error");
+        }
+        level = FindObjectOfType<Level>();
+        if (level == null)
+        {
+            Print("No Level found!", "error");
         }
 
         Load();
@@ -77,7 +82,6 @@ public class GameManager : Utilities
         Print("Preparing level", "event");
 
         currentState = State.Preparing;
-        currentLevel = level;
     }
 
     /// <summary>
@@ -93,6 +97,7 @@ public class GameManager : Utilities
         mainCamera.GetComponent<SmoothFollow2DCamera>().enabled = true;
         audioManager.PlaySound(backgroundMusic);
         Reset();
+        level.SpawnFood(initialFood);
     }
 
     /// <summary>
@@ -123,7 +128,6 @@ public class GameManager : Utilities
     /// </summary>
     public void Reset()
     {
-        currentLevel = 1;
         currentScore = 0;
         playTime = 0.0f;
     }

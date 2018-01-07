@@ -4,21 +4,21 @@ using System.Collections;
 public class Food : Utilities
 {
     private GameManager gameManager;
-    private FoodManager foodManager;
+    private Level level;
 
     // Use this for initialization
     void Start ()
     {
         gameManager = FindObjectOfType<GameManager>();
-        foodManager = FindObjectOfType<FoodManager>();
+        level = FindObjectOfType<Level>();
 
         if (gameManager == null)
         {
             Print("No GameManager found!", "error");
         }
-        if (foodManager == null)
+        if (level == null)
         {
-            Print("No FoodManager found!", "error");
+            Print("No Level found!", "error");
         }
 
         int foodScore = gameManager.currentScore;
@@ -42,7 +42,7 @@ public class Food : Utilities
 
     public void RemoveObject()
     {
-        foodManager.food.Remove(gameObject);
+        level.food.Remove(gameObject);
         Destroy(gameObject);
     }
 }
