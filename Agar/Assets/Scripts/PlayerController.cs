@@ -6,6 +6,7 @@ public class PlayerController : Utilities
     public GameObject splitMass;
 
     public float movementSpeed = 50.0f;
+    public float maxMovementSpeed = 3.0f;
     public float massSplitMultiplier = 0.5f;
     public float increase = 0.05f;
     public Vector2 movement;
@@ -15,17 +16,20 @@ public class PlayerController : Utilities
     public string mergeSound = "MergeSound";
 
     private Rigidbody2D rigidBody2D;
-    private GameObject gameManager;
-    private GameManager managerScript;
+    private GameManager gameManager;
     private AudioManager audioManager;
 
     // Use this for initialization
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("GameManager");
-        managerScript = gameManager.GetComponent<GameManager>();
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
+
+        if (gameManager == null)
+        {
+            Print("No GameManager found!", "error");
+        }
         if (audioManager == null)
         {
             Print("No AudioManager found!", "error");
@@ -39,6 +43,8 @@ public class PlayerController : Utilities
         mouseDistance.y = (Input.mousePosition.y - Camera.main.WorldToScreenPoint(gameObject.transform.position).y) * 0.005f;
         movement.x = Input.GetAxis("Horizontal") + mouseDistance.x;
         movement.y = Input.GetAxis("Vertical") + mouseDistance.y;
+        movement.x = Mathf.Clamp(movement.x, -maxMovementSpeed, maxMovementSpeed);
+        movement.y = Mathf.Clamp(movement.y, -maxMovementSpeed, maxMovementSpeed);
         rigidBody2D.velocity = movement * movementSpeed * Time.deltaTime;
     }
 
@@ -69,7 +75,7 @@ public class PlayerController : Utilities
             audioManager.PlaySound(eatSound);
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
-            managerScript.ChangeScore(10);
+            gameManager.ChangeScore(10);
         }
         else if (other.gameObject.tag == "SplitMass")
         {

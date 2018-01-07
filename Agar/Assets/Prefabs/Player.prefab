@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splitMass: {fileID: 1732001593137428, guid: 6fbbf65dba7ac8244b436ede91b69878, type: 2}
   movementSpeed: 100
+  maxMovementSpeed: 3
   massSplitMultiplier: 0.5
   increase: 0.05
   movement: {x: 0, y: 0}
