@@ -14,7 +14,7 @@ Please refer to the "Issues" tab for relevant bugs, feature-requests or question
 
 | Name  | Version |
 | ------------- | ------------- |
-| [Unity3D](https://store.unity.com/download?ref=personal)  | Personal 2017.2.1  |
+| [Unity3D](https://store.unity.com/download?ref=personal)  | Personal 2017.3.0  |
 | [Microsoft Visual Studio](https://www.visualstudio.com/)  | Community 2017  |
 | [Adobe Photoshop](http://www.adobe.com/products/photoshop.html)  | CC 2018  |
 | [Adobe Illustrator CC](http://www.adobe.com/products/illustrator.html)  | CC 2018  |
