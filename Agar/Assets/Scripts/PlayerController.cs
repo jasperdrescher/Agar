@@ -69,7 +69,7 @@ public class PlayerController : Utilities
             audioManager.PlaySound(eatSound);
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
-            managerScript.UpdateScore(10);
+            managerScript.ChangeScore(10);
         }
         else if (other.gameObject.tag == "SplitMass")
         {

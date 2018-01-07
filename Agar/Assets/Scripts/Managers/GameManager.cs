@@ -6,6 +6,7 @@ public class GameManager : Utilities
 {
     public enum State { Menu, Preparing, Playing, Paused };
 
+    public GameObject playerPrefab;
     public State currentState;
     public int currentLevel = 1;
     public float elapsedTime = 0.0f;
@@ -16,6 +17,7 @@ public class GameManager : Utilities
     public string backgroundMusic = "BackgroundMusic";
 
     private AudioManager audioManager;
+    private Camera mainCamera;
     private GameObject level;
 
     // Awake is always called before any Start functions
@@ -28,6 +30,7 @@ public class GameManager : Utilities
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        mainCamera = Camera.main;
 
         Load();
     }
@@ -77,6 +80,9 @@ public class GameManager : Utilities
         Print("Starting game", "event");
 
         currentState = State.Playing;
+        GameObject newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+        mainCamera.GetComponent<SmoothFollow2DCamera>().target = newPlayer.transform;
+        mainCamera.GetComponent<SmoothFollow2DCamera>().enabled = true;
         audioManager.PlaySound(backgroundMusic);
     }
 
@@ -104,13 +110,13 @@ public class GameManager : Utilities
     }
 
     /// <summary>
-    /// Update variables related to UI.
+    /// Change the current score.
     /// </summary>
-    public void UpdateScore(int a_Score)
+    public void ChangeScore(int score)
     {
-        Print("Updating score", "event");
+        Print("Changing score", "event");
 
-        currentScore += a_Score;
+        currentScore += score;
     }
 
     /// <summary>

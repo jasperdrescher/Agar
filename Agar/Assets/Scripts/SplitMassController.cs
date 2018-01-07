@@ -59,7 +59,7 @@ public class SplitMassController : Utilities
             Print("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
-            managerScript.UpdateScore(10);
+            managerScript.ChangeScore(10);
         }
     }
 }

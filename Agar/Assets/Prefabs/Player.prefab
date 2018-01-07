@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 58432841646711090}
   - component: {fileID: 50373849620333038}
   - component: {fileID: 114669874395277094}
+  - component: {fileID: 58611315897484584}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -79,6 +80,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!58 &58611315897484584
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369636560395714}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.48
 --- !u!114 &114669874395277094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,9 +120,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splitMass: {fileID: 1732001593137428, guid: 6fbbf65dba7ac8244b436ede91b69878, type: 2}
-  movementSpeed: 50
+  movementSpeed: 100
   massSplitMultiplier: 0.5
   increase: 0.05
+  movement: {x: 0, y: 0}
+  mouseDistance: {x: 0, y: 0}
+  eatSound: EatSound
+  spawnSound: SpawnSound
+  mergeSound: MergeSound
 --- !u!212 &212232005409455140
 SpriteRenderer:
   m_ObjectHideFlags: 1
