@@ -1,16 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Text;
 
 public class GameManager : Utilities
 {
-    public static GameManager instance = null;
     public enum State { Menu, Preparing, Playing, Paused };
 
-    public bool persistent = false;
     public State currentState;
     public int currentLevel = 1;
     public float elapsedTime = 0.0f;
@@ -18,37 +13,21 @@ public class GameManager : Utilities
     public int currentScore = 0;
     public int currentHighScore = 0;
 
+    public string backgroundMusic = "BackgroundMusic";
+
     private AudioManager audioManager;
     private GameObject level;
 
     // Awake is always called before any Start functions
     void Awake()
     {
-        if (instance != null)
-        {
-            if (instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            instance = this;
-            if (persistent)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
+
     }
 
     // Use this for initialization
     void Start()
     {
-        audioManager = AudioManager.instance;
-        if (audioManager == null)
-        {
-            Print("No AudioManager found!", "error");
-        }
+        audioManager = FindObjectOfType<AudioManager>();
 
         Load();
     }
@@ -72,31 +51,33 @@ public class GameManager : Utilities
     /// <summary>
     /// Change the current game state.
     /// </summary>
-    public void ChangeState(State a_newState)
+    public void ChangeState(State state)
     {
         Print("Changing state", "event");
 
-        currentState = a_newState;
+        currentState = state;
     }
 
     /// <summary>
     /// Start the game.
     /// </summary>
-    public void PrepareLevel(int a_Newlevel)
+    public void PrepareLevel(int level)
     {
         Print("Preparing level", "event");
 
         currentState = State.Preparing;
-        currentLevel = a_Newlevel;
+        currentLevel = level;
     }
 
     /// <summary>
-    /// Start the game.
+    /// Play the game.
     /// </summary>
-    public void LoadScene(string a_Name)
+    public void Play()
     {
-        SceneManager.LoadScene(a_Name);
-        PrepareLevel(currentLevel);
+        Print("Starting game", "event");
+
+        currentState = State.Playing;
+        audioManager.PlaySound(backgroundMusic);
     }
 
     /// <summary>
@@ -104,8 +85,10 @@ public class GameManager : Utilities
     /// </summary>
     public void Pause()
     {
+        Print("Pausing game", "event");
+
         currentState = State.Paused;
-        audioManager.PauseSound("BackgroundMusic");
+        audioManager.PauseSound(backgroundMusic);
         Time.timeScale = 0;
         Save();
     }
@@ -113,10 +96,10 @@ public class GameManager : Utilities
     /// <summary>
     /// Proceed gameplay.
     /// </summary>
-    public void Continue()
+    public void Resume()
     {
         currentState = State.Playing;
-        audioManager.ResumeSound("BackgroundMusic");
+        audioManager.ResumeSound(backgroundMusic);
         Time.timeScale = 1.0f;
     }
 

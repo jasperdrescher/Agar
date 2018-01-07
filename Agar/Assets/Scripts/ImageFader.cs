@@ -20,6 +20,12 @@ public class ImageFader : MonoBehaviour
         StartCoroutine(Fade(FadeDirection.Out));
     }
 
+    public void Reset()
+    {
+        fadeOutUIImage.enabled = true;
+        fadeOutUIImage.color = new Color(fadeOutUIImage.color.r, fadeOutUIImage.color.g, fadeOutUIImage.color.b, 1.0f);
+    }
+
     private IEnumerator Fade(FadeDirection fadeDirection)
     {
         float alpha = (fadeDirection == FadeDirection.Out) ? 1 : 0;

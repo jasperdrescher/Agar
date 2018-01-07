@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Text;
 
@@ -17,22 +16,11 @@ public class MenuManager : Utilities
     public string buttonPress = "ButtonPress";
 
     private GameManager gameManager;
-    private AudioManager audioManager;
 
     // Use this for initialization
     void Start ()
     {
-        audioManager = AudioManager.instance;
-        if (audioManager == null)
-        {
-            Print("No AudioManager found!", "error");
-        }
-
-        gameManager = GameManager.instance;
-        if (gameManager == null)
-        {
-            Print("No GameManager found!", "error");
-        }
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -56,22 +44,6 @@ public class MenuManager : Utilities
     }
 
     /// <summary>
-    /// Load a scene based on the given name.
-    /// </summary>
-    public void LoadScene(string name)
-    {
-        gameManager.LoadScene(name);
-    }
-
-    /// <summary>
-    /// Quit the game.
-    /// </summary>
-    public void Quit()
-    {
-        gameManager.Quit();
-    }
-
-    /// <summary>
     /// Toggle the pause menu and state.
     /// </summary>
     public void TogglePause()
@@ -84,7 +56,7 @@ public class MenuManager : Utilities
         else
         {
             TogglePanel(pausePanel);
-            gameManager.Continue();
+            gameManager.Resume();
         }
     }
 
@@ -115,25 +87,6 @@ public class MenuManager : Utilities
         else
         {
             canvas.enabled = true;
-        }
-    }
-
-    /// <summary>
-    /// Request the AudioManager to play a sound.
-    /// </summary>
-    public void PlaySound(string sound)
-    {
-        if (sound == buttonHover)
-        {
-            audioManager.PlaySound(buttonHover);
-        }
-        else if (sound == buttonPress)
-        {
-            audioManager.PlaySound(buttonPress);
-        }
-        else
-        {
-            Print("No audio file found " + sound, "error");
         }
     }
 }

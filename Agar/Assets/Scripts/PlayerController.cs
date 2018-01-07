@@ -25,12 +25,11 @@ public class PlayerController : Utilities
         rigidBody2D = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("GameManager");
         managerScript = gameManager.GetComponent<GameManager>();
-        audioManager = AudioManager.instance;
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         if (audioManager == null)
         {
             Print("No AudioManager found!", "error");
         }
-        StartCoroutine(Spawn());
     }
 
     // FixedUpdate is used for physics
@@ -79,11 +78,5 @@ public class PlayerController : Utilities
             transform.localScale = transform.localScale * 2.0f;
             Destroy(other.gameObject);
         }
-    }
-
-    IEnumerator Spawn()
-    {
-        yield return new WaitForSeconds(0.5f);
-        audioManager.PlaySound(spawnSound);
     }
 }

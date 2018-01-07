@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e9641903818a084ab909db64bba1ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
   sounds:
   - name: BackgroundMusic
     clip: {fileID: 8300000, guid: d3cc1f81594c47b4e82f3731c538dd1c, type: 3}

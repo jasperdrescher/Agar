@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775ca3ab7234cb1419048984300debbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
   currentState: 0
   currentLevel: 1
   elapsedTime: 0

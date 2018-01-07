@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Level : Utilities
 {
-    public static Level instance = null;
-
-    public bool persistent = false;
     public Vector2 spawnField;
     public float borderThickness = 1.0f;
 
@@ -20,21 +17,7 @@ public class Level : Utilities
     // Awake is always called before any Start functions
     void Awake()
     {
-        if (instance != null)
-        {
-            if (instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            instance = this;
-            if (persistent)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
+
     }
 
     // Use this for initialization

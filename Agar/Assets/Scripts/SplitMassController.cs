@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SplitMassController : MonoBehaviour
+public class SplitMassController : Utilities
 {
     public GameObject splitMass;
 
@@ -47,7 +47,7 @@ public class SplitMassController : MonoBehaviour
             }
             else
             {
-                managerScript.Print("Can't split mass!", "log");
+                Print("Can't split mass!", "log");
             }
         }
     }
@@ -56,7 +56,7 @@ public class SplitMassController : MonoBehaviour
     {
         if (other.gameObject.tag == "Food")
         {
-            managerScript.Print("Ate food", "log");
+            Print("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
             managerScript.UpdateScore(10);

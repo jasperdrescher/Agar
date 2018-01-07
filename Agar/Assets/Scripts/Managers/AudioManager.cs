@@ -49,51 +49,31 @@ public class Sound
     }
 }
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Utilities
 {
-    public static AudioManager instance;
-
-    public bool persistent = false;
     [SerializeField]
     Sound[] sounds;
 
-    private GameObject gameManager;
-    private GameManager managerScript;
-
+    // Awake is always called before any Start functions
     void Awake()
     {
-        if (instance != null)
-        {
-            if (instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            instance = this;
-            if (persistent)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
+
     }
 
+    // Use this for initialization
     void Start()
     {
-        gameManager = GameObject.Find("GameManager");
-        managerScript = gameManager.GetComponent<GameManager>();
-
         for (int i = 0; i < sounds.Length; i++)
         {
             GameObject _go = new GameObject("Sound_" + i + "_" + sounds[i].name);
             _go.transform.SetParent(this.transform);
             sounds[i].SetSource(_go.AddComponent<AudioSource>());
         }
-
-        PlaySound("BackgroundMusic");
     }
 
+    /// <summary>
+    /// Play a sound.
+    /// </summary>
     public void PlaySound(string _name)
     {
         for (int i = 0; i < sounds.Length; i++)
@@ -105,9 +85,12 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.Print("Sound not found in list, " + _name, "error");
+        Print("Sound not found in list, " + _name, "error");
     }
 
+    /// <summary>
+    /// Pause a sound.
+    /// </summary>
     public void PauseSound(string _name)
     {
         for (int i = 0; i < sounds.Length; i++)
@@ -119,9 +102,12 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.Print("Sound not found in list, " + _name, "error");
+        Print("Sound not found in list, " + _name, "error");
     }
 
+    /// <summary>
+    /// Resume a sound.
+    /// </summary>
     public void ResumeSound(string _name)
     {
         for (int i = 0; i < sounds.Length; i++)
@@ -133,9 +119,12 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.Print("Sound not found in list, " + _name, "error");
+        Print("Sound not found in list, " + _name, "error");
     }
 
+    /// <summary>
+    /// Stop a sound.
+    /// </summary>
     public void StopSound(string _name)
     {
         for (int i = 0; i < sounds.Length; i++)
@@ -147,6 +136,6 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        managerScript.Print("Sound not found in list, " + _name, "error");
+        Print("Sound not found in list, " + _name, "error");
     }
 }
