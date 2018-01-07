@@ -6,8 +6,6 @@ using System.Text;
 
 public class MenuManager : Utilities
 {
-    public GameObject fadePanel;
-    public GameObject gameplayPanel;
     public GameObject pausePanel;
     public Text scoreText;
     public Text highscoreText;
@@ -21,6 +19,10 @@ public class MenuManager : Utilities
     void Start ()
     {
         gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Print("No AudioManager found!", "error");
+        }
     }
 
     // Update is called once per frame

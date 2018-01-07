@@ -8,9 +8,9 @@ public class GameManager : Utilities
 
     public GameObject playerPrefab;
     public State currentState;
-    public int currentLevel = 1;
     public float elapsedTime = 0.0f;
     public float playTime = 0.0f;
+    public int currentLevel = 1;
     public int currentScore = 0;
     public int currentHighScore = 0;
 
@@ -30,7 +30,15 @@ public class GameManager : Utilities
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null)
+        {
+            Print("No AudioManager found!", "error");
+        }
         mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            Print("No AudioManager found!", "error");
+        }
 
         Load();
     }
@@ -84,6 +92,7 @@ public class GameManager : Utilities
         mainCamera.GetComponent<SmoothFollow2DCamera>().target = newPlayer.transform;
         mainCamera.GetComponent<SmoothFollow2DCamera>().enabled = true;
         audioManager.PlaySound(backgroundMusic);
+        Reset();
     }
 
     /// <summary>
@@ -107,6 +116,16 @@ public class GameManager : Utilities
         currentState = State.Playing;
         audioManager.ResumeSound(backgroundMusic);
         Time.timeScale = 1.0f;
+    }
+
+    /// <summary>
+    /// Reset the game.
+    /// </summary>
+    public void Reset()
+    {
+        currentLevel = 1;
+        currentScore = 0;
+        playTime = 0.0f;
     }
 
     /// <summary>

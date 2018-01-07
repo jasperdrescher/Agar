@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodManager : MonoBehaviour
+public class FoodManager : Utilities
 {
     public GameObject foodPrefab;
     public List<GameObject> food = new List<GameObject>();
@@ -16,7 +16,11 @@ public class FoodManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Print("No GameManager found!", "error");
+        }
     }
 
     // Update is called once per frame
@@ -41,9 +45,9 @@ public class FoodManager : MonoBehaviour
     /// <summary>
     /// Spawn a certain amount of food instances.
     /// </summary>
-    public void SpawnFood(int a_Amount)
+    public void SpawnFood(int amount)
     {
-        for (int i = 0; i < a_Amount; i++)
+        for (int i = 0; i < amount; i++)
         {
             Vector3 position = new Vector3(Random.Range(-spawnField.x, spawnField.x), Random.Range(-spawnField.y, spawnField.y), 0.0f);
             GameObject newFood = Instantiate(foodPrefab, position, Quaternion.identity);

@@ -8,6 +8,6 @@ public class ColorModifier : MonoBehaviour
 
     void Awake()
     {
-        gameObject.GetComponent<SpriteRenderer>().color = colors[Random.Range(0, colors.Count)];
+        GetComponent<SpriteRenderer>().color = colors[Random.Range(0, colors.Count)];
     }
 }

@@ -1,21 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Food : MonoBehaviour
+public class Food : Utilities
 {
-    private GameObject gameManager;
-    private GameManager managerScript;
-    private GameObject foodSpawner;
+    private GameManager gameManager;
     private FoodManager foodManager;
 
     // Use this for initialization
     void Start ()
     {
-        gameManager = GameObject.Find("GameManager");
-        managerScript = gameManager.GetComponent<GameManager>();
-        foodManager = GameObject.Find("Level").GetComponent<FoodManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        foodManager = FindObjectOfType<FoodManager>();
 
-        int foodScore = managerScript.currentScore;
+        if (gameManager == null)
+        {
+            Print("No GameManager found!", "error");
+        }
+        if (foodManager == null)
+        {
+            Print("No FoodManager found!", "error");
+        }
+
+        int foodScore = gameManager.currentScore;
         if (foodScore < 500)
         {
             int increase = 0;

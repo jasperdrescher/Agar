@@ -13,15 +13,17 @@ public class SplitMassController : Utilities
     public Vector2 mouseDistance;
 
     private Rigidbody2D rigidBody2D;
-    private GameObject gameManager;
-    private GameManager managerScript;
+    private GameManager gameManager;
 
     // Use this for initialization
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("GameManager");
-        managerScript = gameManager.GetComponent<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Print("No GameManager found!", "error");
+        }
     }
 
     // FixedUpdate is used for physics
@@ -59,7 +61,7 @@ public class SplitMassController : Utilities
             Print("Ate food", "log");
             transform.localScale += new Vector3(increase, increase, 0);
             other.GetComponent<Food>().RemoveObject();
-            managerScript.ChangeScore(10);
+            gameManager.ChangeScore(10);
         }
     }
 }

@@ -23,8 +23,13 @@ public class Level : Utilities
     // Use this for initialization
     void Start ()
     {
-        foodManager = gameObject.GetComponent<FoodManager>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        foodManager = GetComponent<FoodManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Print("No GameManager found!", "error");
+        }
+
         upCollider = gameObject.AddComponent<BoxCollider2D>();
         upCollider.offset = new Vector2(0.0f, spawnField.y);
         upCollider.size = new Vector2(spawnField.x * 2.0f, borderThickness);
