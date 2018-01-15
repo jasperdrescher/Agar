@@ -51,9 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95895e2314dc30e4abe146f814e639c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadePanel: {fileID: 0}
-  gameplayPanel: {fileID: 0}
   pausePanel: {fileID: 0}
+  showFrameRate: 0
   scoreText: {fileID: 0}
   highscoreText: {fileID: 0}
   elapsedTimeText: {fileID: 0}
