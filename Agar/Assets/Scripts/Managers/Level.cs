@@ -11,6 +11,7 @@ public class Level : Utilities
     public List<GameObject> tiles = new List<GameObject>();
     public List<GameObject> food = new List<GameObject>();
     public float spawnInterval = 5.0f;
+    public int initialFoodAmount = 100;
     
     private GameManager gameManager;
     private SpriteRenderer spriteRenderer;
@@ -49,7 +50,6 @@ public class Level : Utilities
         spriteRenderer = tilePrefab.GetComponent<SpriteRenderer>();
         spriteWidth = spriteRenderer.sprite.bounds.size.x;
         spriteHeight = spriteRenderer.sprite.bounds.size.y;
-        PrepareLevel();
     }
 	
 	// Update is called once per frame
@@ -76,6 +76,7 @@ public class Level : Utilities
     /// </summary>
     public void SpawnFood(int amount)
     {
+        print("Spawning food: " + amount);
         for (int i = 0; i < amount; i++)
         {
             Vector3 position = new Vector3(Random.Range(-spawnField.x, spawnField.x), Random.Range(-spawnField.y, spawnField.y), 0.0f);
@@ -119,5 +120,7 @@ public class Level : Utilities
         {
             Print("Tile prefab contains no data!", "error");
         }
+
+        SpawnFood(initialFoodAmount);
     }
 }

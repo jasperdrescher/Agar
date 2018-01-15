@@ -9,7 +9,6 @@ public class GameManager : Utilities
     public State currentState;
     public float elapsedTime = 0.0f;
     public float playTime = 0.0f;
-    public int initialFood = 50;
     public int currentScore = 0;
     public int currentHighScore = 0;
     public GameObject playerPrefab;
@@ -88,15 +87,16 @@ public class GameManager : Utilities
     /// </summary>
     public void Play()
     {
-        Print("Starting game", "event");
+        Print("Preparing game", "event");
 
-        currentState = State.Playing;
+        currentState = State.Preparing;
         GameObject newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
         mainCamera.GetComponent<SmoothFollow2DCamera>().target = newPlayer.transform;
         mainCamera.GetComponent<SmoothFollow2DCamera>().enabled = true;
         audioManager.PlaySound(backgroundMusic);
         Reset();
-        level.SpawnFood(initialFood);
+        level.PrepareLevel();
+        currentState = State.Playing;
     }
 
     /// <summary>
