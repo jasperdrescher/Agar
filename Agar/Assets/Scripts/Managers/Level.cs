@@ -7,16 +7,22 @@ public class Level : Utilities
     public Vector2 spawnField;
     public float borderThickness = 1.0f;
     public GameObject foodPrefab;
+    public GameObject tilePrefab;
+    public List<GameObject> tiles = new List<GameObject>();
     public List<GameObject> food = new List<GameObject>();
     public float spawnInterval = 5.0f;
     
     private GameManager gameManager;
+    private SpriteRenderer spriteRenderer;
     private BoxCollider2D upCollider;
     private BoxCollider2D downCollider;
     private BoxCollider2D rightCollider;
     private BoxCollider2D leftCollider;
     private float accumulator;
     private int maxFood = 100;
+    private float spriteWidth;
+    private float spriteHeight;
+    private int tileCount;
 
     // Awake is always called before any Start functions
     void Awake()
@@ -40,6 +46,10 @@ public class Level : Utilities
         leftCollider = gameObject.AddComponent<BoxCollider2D>();
         leftCollider.offset = new Vector2(-spawnField.x, 0.0f);
         leftCollider.size = new Vector2(borderThickness, spawnField.y * 2.0f);
+        spriteRenderer = tilePrefab.GetComponent<SpriteRenderer>();
+        spriteWidth = spriteRenderer.sprite.bounds.size.x;
+        spriteHeight = spriteRenderer.sprite.bounds.size.y;
+        PrepareLevel();
     }
 	
 	// Update is called once per frame
@@ -82,5 +92,32 @@ public class Level : Utilities
     {
         maxFood = a_Maxfood;
         spawnField = a_Maxfield;
+    }
+
+    public void PrepareLevel()
+    {
+        if (spriteWidth > 0.0f && spriteHeight > 0.0f)
+        {
+            float tilesOnX = (spawnField.x * 2) / spriteWidth;
+            float tilesOnY = (spawnField.y * 2) / spriteHeight;
+            tileCount = Mathf.CeilToInt(tilesOnX) * Mathf.CeilToInt(tilesOnY);
+
+            Print("Spawning " + tileCount + " tiles");
+
+            for (int y = 0; y < tilesOnY + 1; y++)
+            {
+                for (int x = 0; x < tilesOnX + 1; x++)
+                {
+                    Vector3 position = new Vector3(-spawnField.x + ((spriteWidth) * x ), -spawnField.y + ((spriteHeight) * y), 0.0f);
+                    GameObject newTile = Instantiate(tilePrefab, position, Quaternion.identity);
+                    newTile.transform.parent = gameObject.transform;
+                    tiles.Add(newTile);
+                }
+            }
+        }
+        else
+        {
+            Print("Tile prefab contains no data!", "error");
+        }
     }
 }

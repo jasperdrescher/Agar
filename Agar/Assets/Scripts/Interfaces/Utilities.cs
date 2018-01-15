@@ -33,6 +33,14 @@ public class Utilities : MonoBehaviour
     /// <summary>
     /// Prints the given message in the console with extra information.
     /// </summary>
+    public void Print(string message)
+    {
+        Debug.Log(gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
+    }
+
+    /// <summary>
+    /// Prints the given message in the console with extra information.
+    /// </summary>
     public void Print(string message, string severity)
     {
         switch (severity)
@@ -41,17 +49,17 @@ public class Utilities : MonoBehaviour
                 Debug.Log(gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
                 break;
             case "event":
-                Debug.Log("<color=orange>(Event) </color>" + gameObject.name + ": " + message + " @ " + Time.time + " seconds");
+                Debug.Log("<color=orange>(Event) </color>" + gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
                 break;
             case "warning":
-                Debug.LogWarning(gameObject.name + ": " + message + " @ " + Time.time + " seconds");
+                Debug.LogWarning(gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
                 break;
             case "error":
-                Debug.LogError(gameObject.name + ": " + message + " @ " + Time.time + " seconds");
+                Debug.LogError(gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
                 break;
 
             default:
-                Debug.Log(gameObject.name + ": " + message + " @ " + Time.time + " seconds");
+                Debug.Log(gameObject.name + ": " + message + " @ " + Time.time + " seconds.");
                 break;
         }
     }

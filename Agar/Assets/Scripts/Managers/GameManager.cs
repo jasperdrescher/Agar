@@ -5,15 +5,14 @@ using UnityEngine;
 public class GameManager : Utilities
 {
     public enum State { Menu, Preparing, Playing, Paused };
-
-    public GameObject playerPrefab;
+    
     public State currentState;
     public float elapsedTime = 0.0f;
     public float playTime = 0.0f;
     public int initialFood = 50;
     public int currentScore = 0;
     public int currentHighScore = 0;
-
+    public GameObject playerPrefab;
     public string backgroundMusic = "BackgroundMusic";
 
     private AudioManager audioManager;
