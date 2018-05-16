@@ -3,9 +3,10 @@
 --- !u!159 &1
 EditorSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 7
   m_ExternalVersionControlSupport: Visible Meta Files
   m_SerializationMode: 2
+  m_LineEndingsForNewScripts: 2
   m_DefaultBehaviorMode: 1
   m_SpritePackerMode: 4
   m_SpritePackerPaddingPower: 1
