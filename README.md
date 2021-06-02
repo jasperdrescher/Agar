@@ -5,7 +5,6 @@ A 2D game created in Unity3D and written in C#. Agar is based on the massively p
 
 For contributors:
 --------------------------------------
-This project is developed by Jasper Drescher under the MIT license. <br />
 Any contribution to this project is welcome and will be credited.
 
 Please refer to the "Issues" tab for relevant bugs, feature-requests or questions related to this project.
